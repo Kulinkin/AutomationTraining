@@ -1,0 +1,16 @@
+C:\Users\artemkulinkin\source\repos\AutomationTest\AutomationTest\bin\Debug\net5.0\AutomationTest.exe
+C:\Users\artemkulinkin\source\repos\AutomationTest\AutomationTest\bin\Debug\net5.0\AutomationTest.deps.json
+C:\Users\artemkulinkin\source\repos\AutomationTest\AutomationTest\bin\Debug\net5.0\AutomationTest.runtimeconfig.json
+C:\Users\artemkulinkin\source\repos\AutomationTest\AutomationTest\bin\Debug\net5.0\AutomationTest.runtimeconfig.dev.json
+C:\Users\artemkulinkin\source\repos\AutomationTest\AutomationTest\bin\Debug\net5.0\AutomationTest.dll
+C:\Users\artemkulinkin\source\repos\AutomationTest\AutomationTest\bin\Debug\net5.0\ref\AutomationTest.dll
+C:\Users\artemkulinkin\source\repos\AutomationTest\AutomationTest\bin\Debug\net5.0\AutomationTest.pdb
+C:\Users\artemkulinkin\source\repos\AutomationTest\AutomationTest\obj\Debug\net5.0\AutomationTest.csproj.AssemblyReference.cache
+C:\Users\artemkulinkin\source\repos\AutomationTest\AutomationTest\obj\Debug\net5.0\AutomationTest.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\artemkulinkin\source\repos\AutomationTest\AutomationTest\obj\Debug\net5.0\AutomationTest.AssemblyInfoInputs.cache
+C:\Users\artemkulinkin\source\repos\AutomationTest\AutomationTest\obj\Debug\net5.0\AutomationTest.AssemblyInfo.cs
+C:\Users\artemkulinkin\source\repos\AutomationTest\AutomationTest\obj\Debug\net5.0\AutomationTest.csproj.CoreCompileInputs.cache
+C:\Users\artemkulinkin\source\repos\AutomationTest\AutomationTest\obj\Debug\net5.0\AutomationTest.dll
+C:\Users\artemkulinkin\source\repos\AutomationTest\AutomationTest\obj\Debug\net5.0\ref\AutomationTest.dll
+C:\Users\artemkulinkin\source\repos\AutomationTest\AutomationTest\obj\Debug\net5.0\AutomationTest.pdb
+C:\Users\artemkulinkin\source\repos\AutomationTest\AutomationTest\obj\Debug\net5.0\AutomationTest.genruntimeconfig.cache
