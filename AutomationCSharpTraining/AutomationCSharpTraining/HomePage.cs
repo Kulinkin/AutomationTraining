@@ -13,15 +13,13 @@ namespace AutomationCSharpTraining
     class HomePage
     {
         IWebDriver _driver;
-        const string MailLinkLocator = "desk-notif-card__login-new-item";
-
-        public IWebElement MailLink { get; set; }
         public List<IWebElement> LiTags;
 
         public HomePage(IWebDriver driver)
         {
             _driver = driver;
-            MailLink = _driver.FindElement(By.ClassName(MailLinkLocator));
+        }
+            public IWebElement MailLink => _driver.FindElement(By.ClassName("desk-notif-card__login-new-item")); 
 
             /*Examples of 'By search' that are not presented in the flow of the test
             By Name:
@@ -38,12 +36,13 @@ namespace AutomationCSharpTraining
 
             By CSS
             var NewsLink = _driver.FindElement(By.CssSelector("span[class='news__tab-text']"));
-            */            
-        }
+            */
+
 
         public void EnterMailLoginPage()
         {
-            MailLink.Click();            
+
+            MailLink.Click();           
         }
     }
 }

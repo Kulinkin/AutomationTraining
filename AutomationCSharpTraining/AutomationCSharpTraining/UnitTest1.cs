@@ -25,7 +25,7 @@ namespace AutomationCSharpTraining
             
             driver.Url = "https://yandex.by";
             HomePage homePage = new HomePage(driver);
-            Thread.Sleep(2000);
+            Thread.Sleep(2000);            
 
             homePage.EnterMailLoginPage();
             Thread.Sleep(2000);
