@@ -10,6 +10,7 @@ namespace AutomationCSharpTraining
 {
     class UsernamePage
     {
+        //
         IWebDriver _driver;
         const string EnterUsernameButtonLocator = "//button[@id = 'passp:sign-in']";
         const string UsernameFieldLocator = "passp-field-login";

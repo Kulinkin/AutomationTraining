@@ -22,7 +22,7 @@ namespace AutomationCSharpTraining
         [Test]
         public void SuccessfullLogin()
         {
-            
+            //
             driver.Url = "https://yandex.by";
             HomePage homePage = new HomePage(driver);
             Thread.Sleep(2000);            

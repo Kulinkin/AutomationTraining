@@ -36,7 +36,8 @@ namespace AutomationCSharpTraining
 
             By CSS
             var NewsLink = _driver.FindElement(By.CssSelector("span[class='news__tab-text']"));
-            */
+            
+             */
 
 
         public void EnterMailLoginPage()

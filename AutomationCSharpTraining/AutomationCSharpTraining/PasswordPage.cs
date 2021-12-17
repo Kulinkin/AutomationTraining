@@ -10,6 +10,7 @@ namespace AutomationCSharpTraining
 {
     class PasswordPage
     {
+        //
         IWebDriver _driver;
 
         const string PasswordFieldLocator = "passwd";

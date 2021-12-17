@@ -10,8 +10,9 @@ namespace AutomationCSharpTraining
 {
     class MailPage
     {
+        //
         IWebDriver _driver;
-
+        
         const string MailPageUsernameLocator = "desk-notif-card__user-name";
         
         public IWebElement MailPageUsername { get; set; }
