@@ -188,7 +188,7 @@ namespace AutomationTest
 
 
 
-            /*var materialsList = new List<BuildingMaterial>();
+            var materialsList = new List<BuildingMaterial>();
 
             BuildingMaterial[] materials = { block1, block2, block3, blockItem1, blockItem2, brick1, brick2, brick3, brick6, plank1, plank2, plank3 };
             materialsList.AddRange(materials);
@@ -197,12 +197,12 @@ namespace AutomationTest
             bool result = brick3.Equals(brick5);
             bool result1 = materialsList.Contains(brick3);*/
 
-            /*List <BuildingMaterial> exactLengthList = GetListByCondition (materialsList, 
+            List <BuildingMaterial> exactLengthList = GetListByCondition (materialsList, 
                 delegate (BuildingMaterial material) 
                 {
                 return material.Height > 10;
                 });== next string*/
-            /*var resultList  = GetListByCondition(materialsList,
+            var resultList  = GetListByCondition(materialsList,
                 material => material.Height > 10);
             var exactLengthList = GetListByCondition(materialsList, x => x.Length == 2);
 

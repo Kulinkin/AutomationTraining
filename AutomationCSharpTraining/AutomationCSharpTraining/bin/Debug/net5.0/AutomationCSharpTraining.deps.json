@@ -8,15 +8,36 @@
     ".NETCoreApp,Version=v5.0": {
       "AutomationCSharpTraining/1.0.0": {
         "dependencies": {
+          "AWSSDK.DynamoDBv2": "3.7.2.4",
           "Microsoft.NET.Test.Sdk": "16.9.4",
           "NUnit": "3.13.1",
           "NUnit3TestAdapter": "4.1.0",
+          "Selenium.Support": "4.1.0",
           "Selenium.WebDriver": "4.1.0",
           "Selenium.WebDriver.ChromeDriver": "96.0.4664.4500",
           "coverlet.collector": "3.0.2"
         },
         "runtime": {
           "AutomationCSharpTraining.dll": {}
+        }
+      },
+      "AWSSDK.Core/3.7.5.8": {
+        "runtime": {
+          "lib/netcoreapp3.1/AWSSDK.Core.dll": {
+            "assemblyVersion": "3.3.0.0",
+            "fileVersion": "3.7.5.8"
+          }
+        }
+      },
+      "AWSSDK.DynamoDBv2/3.7.2.4": {
+        "dependencies": {
+          "AWSSDK.Core": "3.7.5.8"
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/AWSSDK.DynamoDBv2.dll": {
+            "assemblyVersion": "3.3.0.0",
+            "fileVersion": "3.7.2.4"
+          }
         }
       },
       "coverlet.collector/3.0.2": {},
@@ -315,6 +336,17 @@
         }
       },
       "NUnit3TestAdapter/4.1.0": {},
+      "Selenium.Support/4.1.0": {
+        "dependencies": {
+          "Selenium.WebDriver": "4.1.0"
+        },
+        "runtime": {
+          "lib/net5.0/WebDriver.Support.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.0.0.0"
+          }
+        }
+      },
       "Selenium.WebDriver/4.1.0": {
         "dependencies": {
           "Newtonsoft.Json": "12.0.3"
@@ -335,6 +367,20 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "AWSSDK.Core/3.7.5.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-z2HE98YAHOBTSjoNYi9mPUGNbcDV/V9XqRCXcZp6MerQm7jCZzyi9JCyX/89YM+bJwlhZgMjRPhS3S0N7+Z3EQ==",
+      "path": "awssdk.core/3.7.5.8",
+      "hashPath": "awssdk.core.3.7.5.8.nupkg.sha512"
+    },
+    "AWSSDK.DynamoDBv2/3.7.2.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-00dZzMOtwQXk7H1coVqxYhPR1eBALLeChEztqbMj8X7QGHvf6jg1f1BlBUUr7o3vmFMFxiV26M8Qtq9P6E9EPg==",
+      "path": "awssdk.dynamodbv2/3.7.2.4",
+      "hashPath": "awssdk.dynamodbv2.3.7.2.4.nupkg.sha512"
     },
     "coverlet.collector/3.0.2": {
       "type": "package",
@@ -412,6 +458,13 @@
       "sha512": "sha512-v45RJt87pPAWlCDIftmtQhNK0mXd81IcnTE6SmWUmxi6YegCvkQogZQ/ROw4zyNyo2HI3Ckby3LB0GHF4bEIXg==",
       "path": "nunit3testadapter/4.1.0",
       "hashPath": "nunit3testadapter.4.1.0.nupkg.sha512"
+    },
+    "Selenium.Support/4.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-wuK5cfgVaimOZqyuriY2geGpNsI9DWky8CuBlrkBnmebkSrRftxqwyUVy0NLooHaAB2iaMj7qM+VOdUEX5bCHQ==",
+      "path": "selenium.support/4.1.0",
+      "hashPath": "selenium.support.4.1.0.nupkg.sha512"
     },
     "Selenium.WebDriver/4.1.0": {
       "type": "package",

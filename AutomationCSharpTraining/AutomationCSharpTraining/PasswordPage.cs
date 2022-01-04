@@ -10,24 +10,29 @@ namespace AutomationCSharpTraining
 {
     class PasswordPage
     {
-        //
         IWebDriver _driver;
 
-        const string PasswordFieldLocator = "passwd";
-        const string EnterButtonLocator = "//button[@id=\"passp:sign-in\"]";
+        private static readonly By _passwordField = By.Name("passwd");
+        private static readonly By _enterButton = By.XPath("//button[contains(@id,\"sign-in\")]");
+        private static readonly string _commonPassword = "1wsx@QAZ";
+
         public IWebElement PasswordField { get; set; }
         public IWebElement EnterButton { get; set; }
         public PasswordPage(IWebDriver driver)
         {
             _driver = driver;
-            PasswordField = _driver.FindElement(By.Name(PasswordFieldLocator));
-            EnterButton = _driver.FindElement(By.XPath(EnterButtonLocator));
+            _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+            PasswordField = _driver.FindElement(_passwordField);
+            EnterButton = _driver.FindElement(_enterButton);
+
+
         }
-        public void EnterPassword(string password)
+        public HomePage EnterPassword()
         {
             PasswordField.Click();
-            PasswordField.SendKeys(password);
+            PasswordField.SendKeys(_commonPassword);
             EnterButton.Click();
+            return new HomePage(_driver);
         }
     }
 }
