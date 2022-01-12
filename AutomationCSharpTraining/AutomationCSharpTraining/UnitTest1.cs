@@ -19,8 +19,7 @@ namespace AutomationCSharpTraining
 
         [SetUp]
         public void Setup()
-        {
-            
+        {            
             ChromeOptions options = new ChromeOptions();
             options.AddArguments("--incognito");
             driver = new ChromeDriver(options);
@@ -29,15 +28,14 @@ namespace AutomationCSharpTraining
 
         [Test]
         public void SuccessfullLogin()
-        {
-            
+        {            
             HomePage homePage = new HomePage(driver);
             homePage.URL();
             Thread.Sleep(2000);  //I think it is more like implicit waiter as the element which should be displayed is not indicated explicitly
-
             UsernamePage usernamePage = homePage.EnterLoginPage();
-            PasswordPage passwordPage = usernamePage.EnterUsername1();
-            homePage = passwordPage.EnterPassword();
+            usernamePage.WaitUsernameFieldButton(usernamePage.UsernameField);
+            PasswordPage passwordPage = usernamePage.EnterUsername(usernamePage.Username1);
+            homePage = passwordPage.EnterPassword(passwordPage.CommonPassword);
             //Username is displayed in user card if logged in successfully
             Assert.IsTrue(homePage.IsLoggedIn("ifortest"));
 
@@ -50,11 +48,101 @@ namespace AutomationCSharpTraining
             HomePage homePage = new HomePage(driver);
             homePage.URL();
             UsernamePage usernamePage = homePage.EnterLoginPage();
-            PasswordPage passwordPage = usernamePage.EnterUsername2();
-            homePage = passwordPage.EnterPassword();
+            PasswordPage passwordPage = usernamePage.EnterUsername(usernamePage.Username2);
+            homePage = passwordPage.EnterPassword(passwordPage.CommonPassword);
             //Username is displayed in user card if logged in successfully
             Assert.IsTrue(homePage.IsLoggedIn("4vtest"));      
 
+            driver.Quit();
+        }
+        [Test]
+        public void Multiselect()
+        {
+            driver.Url = "https://demo.seleniumeasy.com/basic-select-dropdown-demo.html";
+            SelectElement multiDropDown = new SelectElement(driver.FindElement(By.Id("multi-select")));
+            //select 3 options 
+            multiDropDown.SelectByText("New York");
+            multiDropDown.SelectByText("California");
+            multiDropDown.SelectByText("Pennsylvania");
+            //collect all options
+            var selectedOptions = multiDropDown.AllSelectedOptions;
+            //verify 3 options are chosen
+            Assert.AreEqual(3, selectedOptions.Count);
+            driver.Quit();
+        }
+        [Test]
+        public void WaitUser()
+        {
+            driver.Url = "https://demo.seleniumeasy.com/dynamic-data-loading-demo.html";
+            IWebElement getUserButton = driver.FindElement(By.Id("save"));
+            getUserButton.Click();
+            //wait until loading... disapear
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));            
+            var UserAreaElement = wait.Until(condition =>
+            {
+                try
+                {
+                    var UserArea = driver.FindElement(By.XPath("//div[@id=\"loading\"]"));
+                    //get all text from User Area
+                    string UserAreaText = UserArea.Text.ToString();
+                    bool loadingIsDisplayed = UserAreaText.Contains("loading");                    
+                    return !loadingIsDisplayed;
+                }
+                catch (StaleElementReferenceException)
+                {
+                    return false;
+                }
+                catch (NoSuchElementException)
+                {
+                    return false;
+                }
+            });
+            var Image = driver.FindElement(By.XPath("//div[@id=\"loading\"]/img"));
+            var UserArea = driver.FindElement(By.XPath("//div[@id=\"loading\"]"));
+            string UserAreaText = UserArea.Text.ToString();
+            //passed if all 3 elements are displayed
+            Assert.IsTrue(UserAreaText.Contains("First Name") && UserAreaText.Contains("Last Name") && Image.Displayed, "User is not loaded");
+            driver.Quit();
+        }
+        
+        [Test]
+        public void Alert()
+        {
+            driver.Url = "https://demo.seleniumeasy.com/javascript-alert-box-demo.html";
+            var lounchAlert = driver.FindElement(By.XPath("//button[@onclick=\"myAlertFunction()\"]"));
+            lounchAlert.Click();
+            IAlert alert = driver.SwitchTo().Alert();            
+            alert.Dismiss();
+            //check that alert is dismissed
+            Assert.That(() => driver.SwitchTo().Alert(), Throws.TypeOf<NoAlertPresentException>());            
+            driver.Quit();
+        }
+        [Test]
+        public void CanceltConfirmBox()
+        {
+            driver.Url = "https://demo.seleniumeasy.com/javascript-alert-box-demo.html";
+            var lounchConfirmBox = driver.FindElement(By.XPath("//button[@onclick=\"myConfirmFunction()\"]"));
+            lounchConfirmBox.Click();
+            IAlert alert = driver.SwitchTo().Alert();
+            alert.Dismiss();
+            //check that alert is dismissed
+            Assert.That(() => driver.SwitchTo().Alert(), Throws.TypeOf<NoAlertPresentException>());
+            //check that after combo box is cancelled appears corresponding text
+            Assert.IsTrue(driver.FindElement(By.XPath("//p[@id=\"confirm-demo\"]")).Text.Contains("Cancel"));            
+            driver.Quit();
+        }
+        [Test]
+        public void AcceptConfirmBox()
+        {
+            driver.Url = "https://demo.seleniumeasy.com/javascript-alert-box-demo.html";
+            var lounchConfirmBox = driver.FindElement(By.XPath("//button[@onclick=\"myConfirmFunction()\"]"));
+            lounchConfirmBox.Click();
+            IAlert alert = driver.SwitchTo().Alert();
+            alert.Accept();
+            //check that alert is accepted
+            Assert.That(() => driver.SwitchTo().Alert(), Throws.TypeOf<NoAlertPresentException>());
+            //check that after combo box is accepted appears corresponding text
+            Assert.IsTrue(driver.FindElement(By.XPath("//p[@id=\"confirm-demo\"]")).Text.Contains("OK"));            
             driver.Quit();
         }
         [Test]
@@ -66,6 +154,7 @@ namespace AutomationCSharpTraining
             DownloadButton.Click();            
             //wait till 50% appears using explicit waiter
             var explicitWait = new WebDriverWait(driver, TimeSpan.FromSeconds(20));
+            explicitWait.PollingInterval = TimeSpan.FromMilliseconds(100);
             var element = explicitWait.Until(condition =>
             {
                 try
@@ -98,7 +187,31 @@ namespace AutomationCSharpTraining
             //filter
             var FilteredList = tableSort.ByMinAgeMaxSalary(50, 200000);
             //verify that such users exist (as an example of verification)
-            Assert.IsTrue(FilteredList.Count()>0);
+            try
+            {
+                Assert.IsTrue(FilteredList.Count > 0, "Filtered list doesn't contain any elements");
+            }
+            catch(Exception)
+            {
+                Console.WriteLine("Exception when counting filtered users");
+            }
+            driver.Quit();
+        }
+        [Test]
+        public void Logout()
+        {
+            HomePage homePage = new HomePage(driver);
+            homePage.URL();
+            UsernamePage usernamePage = homePage.EnterLoginPage();
+            usernamePage.WaitUsernameFieldButton(usernamePage.UsernameField);
+            PasswordPage passwordPage = usernamePage.EnterUsername(usernamePage.Username1);
+            homePage = passwordPage.EnterPassword(passwordPage.CommonPassword);
+            //Open user menu
+            homePage.Username.Click();
+            //Switch to user menu and cick logout element
+            homePage.LogOut();
+            //Login link is displayed if successfully logged out
+            Assert.IsTrue(homePage.LoginLink.Displayed);
             driver.Quit();
         }
     }

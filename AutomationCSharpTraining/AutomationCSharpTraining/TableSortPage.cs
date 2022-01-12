@@ -14,21 +14,19 @@ namespace AutomationCSharpTraining
     {
         private readonly IWebDriver _driver;
         public List<IWebElement> LiTags;
-        private static readonly string HomeUrl = "https://demo.seleniumeasy.com/table-sort-search-demo.html";
-        private static readonly By _entriesDropdownLocator = By.Name("example_length");
-        private static readonly By _allPages = By.XPath("//span[not(@*)]/*");
-        private static readonly By _allRows = By.XPath("//tbody[not(@*)]/*");
+        private readonly string HomeUrl = "https://demo.seleniumeasy.com/table-sort-search-demo.html";
+        private readonly By _entriesDropdownLocator = By.Name("example_length");
+        private readonly By _allPages = By.XPath("//span[not(@*)]/*");
+        private readonly By _allRows = By.XPath("//tbody[not(@*)]/*");
 
-        public IWebElement DropDownElement { get; set; }
-        public SelectElement EntriesDropdown { get; set; }
+        public IWebElement DropDownElement => _driver.FindElement(_entriesDropdownLocator);
+
+        public SelectElement EntriesDropdown => new SelectElement(DropDownElement);
 
         public TableSortPage(IWebDriver driver)
         {
             _driver = driver;
-            _driver.Url = HomeUrl;
-            DropDownElement = _driver.FindElement(_entriesDropdownLocator);
-            
-            EntriesDropdown = new SelectElement(DropDownElement);
+            _driver.Url = HomeUrl;            
         }    
 
         public List<String>  ByMinAgeMaxSalary(int minAge, int maxSalary)
@@ -50,15 +48,15 @@ namespace AutomationCSharpTraining
                     for (index = 0; index < RowsLocators.Count(); index++)
                     {
                         var NameElement = _driver.FindElement(By.XPath("//tbody[not(@*)]/tr[" + (index + 1) + "]/td[1]"));
-                        String Name = NameElement.GetAttribute("data-search"); //NameElement.Text;
+                        string Name = NameElement.GetAttribute("data-search"); //NameElement.Text;
                         var PositionElement = _driver.FindElement(By.XPath("//tbody[not(@*)]/tr[" + (index + 1) + "]/td[2]"));
-                        String Position = PositionElement.Text;
+                        string Position = PositionElement.Text;
                         var OfficeElement = _driver.FindElement(By.XPath("//tbody[not(@*)]/tr[" + (index + 1) + "]/td[3]"));
-                        String Office = OfficeElement.Text;
+                        string Office = OfficeElement.Text;
                         var AgeElement = _driver.FindElement(By.XPath("//tbody[not(@*)]/tr[" + (index + 1) + "]/td[4]"));
                         int Age = Convert.ToInt32(AgeElement.Text);
                         var StartDateElement = _driver.FindElement(By.XPath("//tbody[not(@*)]/tr[" + (index + 1) + "]/td[5]"));
-                        String StartDate = StartDateElement.GetAttribute("data-order");
+                        string StartDate = StartDateElement.GetAttribute("data-order");
                         var SalaryElement = _driver.FindElement(By.XPath("//tbody[not(@*)]/tr[" + (index + 1) + "]/td[6]"));
                         int Salary = Convert.ToInt32(SalaryElement.GetAttribute("data-order"));
                         FullData.Add(new Human(Name, Position, Office, Age, StartDate, Salary));
@@ -79,7 +77,6 @@ namespace AutomationCSharpTraining
             catch (NoSuchElementException){}    
             //filter Humans by age and salary
             var filterByMinAgeAndMaxSalary = FullData.Where(x => x.Age > minAge && x.Salary <= maxSalary).ToList();
-
             //take needed parameters, parse to strings
             List<String> ParsedToStringsList = new List<string>();
             foreach (var item in filterByMinAgeAndMaxSalary)

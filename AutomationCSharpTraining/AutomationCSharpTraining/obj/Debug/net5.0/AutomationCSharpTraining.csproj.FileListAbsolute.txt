@@ -102,3 +102,5 @@ C:\Users\artemkulinkin\source\repos\AutomationCSharpTraining\AutomationCSharpTra
 C:\Users\artemkulinkin\source\repos\AutomationCSharpTraining\AutomationCSharpTraining\bin\Debug\net5.0\AWSSDK.Core.dll
 C:\Users\artemkulinkin\source\repos\AutomationCSharpTraining\AutomationCSharpTraining\bin\Debug\net5.0\AWSSDK.DynamoDBv2.dll
 C:\Users\artemkulinkin\source\repos\AutomationCSharpTraining\AutomationCSharpTraining\bin\Debug\net5.0\WebDriver.Support.dll
+C:\Users\artemkulinkin\source\repos\AutomationCSharpTraining\AutomationCSharpTraining\bin\Debug\net5.0\Elasticsearch.Net.dll
+C:\Users\artemkulinkin\source\repos\AutomationCSharpTraining\AutomationCSharpTraining\bin\Debug\net5.0\Nest.dll

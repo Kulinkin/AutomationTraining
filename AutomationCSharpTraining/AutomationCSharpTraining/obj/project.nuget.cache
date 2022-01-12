@@ -1,17 +1,20 @@
 {
   "version": 2,
-  "dgSpecHash": "DFWYQMbQhMA80+Am0ZSyLPC0rUZMzfpxuK6l+KPXnowP0Fn43YWbIBhOxzSIFGhu2Y2XWOJYf3PjwEfgJV1feQ==",
+  "dgSpecHash": "FOsbjNEff3+ki2OCnYuvEkCKp5wpRC3cEkziA5OqUe4Zo5Yxu34tNd8eud3b1rttO/0OIymf2qHxy641mDM5Fw==",
   "success": true,
   "projectFilePath": "C:\\Users\\artemkulinkin\\source\\repos\\AutomationCSharpTraining\\AutomationCSharpTraining\\AutomationCSharpTraining.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\artemkulinkin\\.nuget\\packages\\awssdk.core\\3.7.5.8\\awssdk.core.3.7.5.8.nupkg.sha512",
     "C:\\Users\\artemkulinkin\\.nuget\\packages\\awssdk.dynamodbv2\\3.7.2.4\\awssdk.dynamodbv2.3.7.2.4.nupkg.sha512",
     "C:\\Users\\artemkulinkin\\.nuget\\packages\\coverlet.collector\\3.0.2\\coverlet.collector.3.0.2.nupkg.sha512",
+    "C:\\Users\\artemkulinkin\\.nuget\\packages\\elasticsearch.net\\7.16.0\\elasticsearch.net.7.16.0.nupkg.sha512",
     "C:\\Users\\artemkulinkin\\.nuget\\packages\\microsoft.codecoverage\\16.9.4\\microsoft.codecoverage.16.9.4.nupkg.sha512",
+    "C:\\Users\\artemkulinkin\\.nuget\\packages\\microsoft.csharp\\4.6.0\\microsoft.csharp.4.6.0.nupkg.sha512",
     "C:\\Users\\artemkulinkin\\.nuget\\packages\\microsoft.net.test.sdk\\16.9.4\\microsoft.net.test.sdk.16.9.4.nupkg.sha512",
     "C:\\Users\\artemkulinkin\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\artemkulinkin\\.nuget\\packages\\microsoft.testplatform.objectmodel\\16.9.4\\microsoft.testplatform.objectmodel.16.9.4.nupkg.sha512",
     "C:\\Users\\artemkulinkin\\.nuget\\packages\\microsoft.testplatform.testhost\\16.9.4\\microsoft.testplatform.testhost.16.9.4.nupkg.sha512",
+    "C:\\Users\\artemkulinkin\\.nuget\\packages\\nest\\7.16.0\\nest.7.16.0.nupkg.sha512",
     "C:\\Users\\artemkulinkin\\.nuget\\packages\\netstandard.library\\2.0.0\\netstandard.library.2.0.0.nupkg.sha512",
     "C:\\Users\\artemkulinkin\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
     "C:\\Users\\artemkulinkin\\.nuget\\packages\\nuget.frameworks\\5.0.0\\nuget.frameworks.5.0.0.nupkg.sha512",
@@ -20,6 +23,8 @@
     "C:\\Users\\artemkulinkin\\.nuget\\packages\\selenium.support\\4.1.0\\selenium.support.4.1.0.nupkg.sha512",
     "C:\\Users\\artemkulinkin\\.nuget\\packages\\selenium.webdriver\\4.1.0\\selenium.webdriver.4.1.0.nupkg.sha512",
     "C:\\Users\\artemkulinkin\\.nuget\\packages\\selenium.webdriver.chromedriver\\96.0.4664.4500\\selenium.webdriver.chromedriver.96.0.4664.4500.nupkg.sha512",
+    "C:\\Users\\artemkulinkin\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
+    "C:\\Users\\artemkulinkin\\.nuget\\packages\\system.diagnostics.diagnosticsource\\5.0.0\\system.diagnostics.diagnosticsource.5.0.0.nupkg.sha512",
     "C:\\Users\\artemkulinkin\\.nuget\\packages\\system.reflection.metadata\\1.6.0\\system.reflection.metadata.1.6.0.nupkg.sha512"
   ],
   "logs": []

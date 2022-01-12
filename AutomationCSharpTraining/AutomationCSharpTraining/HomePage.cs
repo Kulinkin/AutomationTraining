@@ -7,7 +7,7 @@ using System.Threading;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
-
+using Nest;
 
 namespace AutomationCSharpTraining
 {
@@ -15,10 +15,11 @@ namespace AutomationCSharpTraining
     {
         private readonly IWebDriver _driver;
         //public List<IWebElement> LiTags;
-        private static readonly string HomeUrl = "https://yandex.by";
-        private static readonly By _mailLink = By.ClassName("desk-notif-card__login-new-item");
-        private static readonly By _usernameLocator = By.ClassName("desk-notif-card__user-name");
-        
+        private readonly string HomeUrl = "https://yandex.by";
+        private readonly By _loginLocator = By.XPath("//a[contains(@class,\"desk-notif-card__login-new-item_enter\")]");
+        private readonly By _usernameLocator = By.ClassName("desk-notif-card__user-name");
+        private readonly By _logoutLocator = By.XPath("//*[contains(text(),\"Выйти\")]");        
+
 
         public HomePage(IWebDriver driver)
         {
@@ -30,8 +31,9 @@ namespace AutomationCSharpTraining
             _driver.Url = HomeUrl;
             return new HomePage(_driver);
         }            
-        public IWebElement MailLink => _driver.FindElement(_mailLink);
+        public IWebElement LoginLink => _driver.FindElement(_loginLocator);
         public IWebElement Username => _driver.FindElement(_usernameLocator);
+        public IWebElement LogoutLink => _driver.FindElement(_logoutLocator);        
 
         /*Examples of 'By search' that are not presented in the flow of the test
         By Name:
@@ -54,13 +56,14 @@ namespace AutomationCSharpTraining
 
         public UsernamePage EnterLoginPage()
         {
-            MailLink.Click();
+            LoginLink.Click();
             return new UsernamePage(_driver);
         }
 
         public bool IsLoggedIn(string username)
         {
             var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
+            wait.PollingInterval = TimeSpan.FromMilliseconds(250);
             var element = wait.Until(condition =>
             {
                 try
@@ -80,5 +83,11 @@ namespace AutomationCSharpTraining
             Username.FindElement(By.XPath("//span[text()='" + username + "']"));
             return Username.Displayed;
         }        
+
+        public void LogOut()
+        {
+            _driver.SwitchTo().Window(_driver.WindowHandles.Last());
+            LogoutLink.Click();
+        }
     }
 }

@@ -14,30 +14,27 @@ namespace AutomationCSharpTraining
         //
         IWebDriver _driver;
 
-        private static readonly By _enterUsernameButtonLocator = By.XPath("//button[@id = 'passp:sign-in']");
-        private static readonly By _usernameFieldLocator = By.Id("passp-field-login");
-        private static readonly string _username1 = "iifortest";
-        private static readonly string _username2 = "p4vtest";
+        private readonly By _enterUsernameButtonLocator = By.XPath("//button[@id = 'passp:sign-in']");
+        private readonly By _usernameFieldLocator = By.Id("passp-field-login");
+        public string Username1 => "iifortest";
+        public string Username2 => "p4vtest";
 
-        public IWebElement UsernameField { get; set; }
-        public IWebElement EnterUsernameButton { get; set; }
-        
+        public IWebElement UsernameField => _driver.FindElement(_usernameFieldLocator);
+        public IWebElement EnterUsernameButton => _driver.FindElement(_enterUsernameButtonLocator);
 
         public UsernamePage(IWebDriver driver)
         {
-            _driver = driver;
-            UsernameField = _driver.FindElement(_usernameFieldLocator);
-            EnterUsernameButton = _driver.FindElement(_enterUsernameButtonLocator);
+            _driver = driver;            
+        }
+
+        public bool WaitUsernameFieldButton(IWebElement control)
+        {
             var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
-            var element = wait.Until(condition =>
+            return wait.Until(condition =>
             {
                 try
                 {
-                    if (UsernameField.Displayed && EnterUsernameButton.Displayed)
-                    {
-                        return true;
-                    }
-                    else return false;
+                    return control.Displayed;                                                    
                 }
                 catch (StaleElementReferenceException)
                 {
@@ -48,23 +45,15 @@ namespace AutomationCSharpTraining
                     return false;
                 }
             }
-            );
+            );            
         }
 
-        public PasswordPage EnterUsername1()
+        public PasswordPage EnterUsername(String username)
         {
             UsernameField.Click();
-            UsernameField.SendKeys(_username1);
+            UsernameField.SendKeys(username);
             EnterUsernameButton.Click();
             return new PasswordPage(_driver);
-        }
-
-        public PasswordPage EnterUsername2()
-        {
-            UsernameField.Click();
-            UsernameField.SendKeys(_username2);
-            EnterUsernameButton.Click();
-            return new PasswordPage(_driver);
-        }
+        }        
     }
 }
