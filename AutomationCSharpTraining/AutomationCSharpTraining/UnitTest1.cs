@@ -202,13 +202,13 @@ namespace AutomationCSharpTraining
         {
             HomePage homePage = new HomePage(driver);
             homePage.URL();
+            //make screenshot
+            homePage.MakeHPScreenShot();
             UsernamePage usernamePage = homePage.EnterLoginPage();
             usernamePage.WaitUsernameFieldButton(usernamePage.UsernameField);
             PasswordPage passwordPage = usernamePage.EnterUsername(usernamePage.Username1);
-            homePage = passwordPage.EnterPassword(passwordPage.CommonPassword);
-            //Open user menu
-            homePage.Username.Click();
-            //Switch to user menu and cick logout element
+            homePage = passwordPage.EnterPassword(passwordPage.CommonPassword);            
+            //Open user menu. Switch to user menu and cick logout element
             homePage.LogOut();
             //Login link is displayed if successfully logged out
             Assert.IsTrue(homePage.LoginLink.Displayed);

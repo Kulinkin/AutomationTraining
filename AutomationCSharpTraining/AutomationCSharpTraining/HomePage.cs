@@ -86,8 +86,14 @@ namespace AutomationCSharpTraining
 
         public void LogOut()
         {
+            Username.Click();
             _driver.SwitchTo().Window(_driver.WindowHandles.Last());
             LogoutLink.Click();
+        }
+
+        public void MakeHPScreenShot() 
+        {
+            _driver.MakeScreenShot();
         }
     }
 }
