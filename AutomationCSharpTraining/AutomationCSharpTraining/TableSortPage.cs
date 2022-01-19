@@ -13,7 +13,7 @@ namespace AutomationCSharpTraining
     class TableSortPage
     {
         private readonly IWebDriver _driver;
-        public List<IWebElement> LiTags;
+        //public List<IWebElement> LiTags;
         private readonly string HomeUrl = "https://demo.seleniumeasy.com/table-sort-search-demo.html";
         private readonly By _entriesDropdownLocator = By.Name("example_length");
         private readonly By _allPages = By.XPath("//span[not(@*)]/*");
@@ -29,7 +29,7 @@ namespace AutomationCSharpTraining
             _driver.Url = HomeUrl;            
         }    
 
-        public List<String>  ByMinAgeMaxSalary(int minAge, int maxSalary)
+        public List<String> ByMinAgeMaxSalary(int minAge, int maxSalary)
         {
             
             List<Human> FullData = new List<Human>();
@@ -61,7 +61,7 @@ namespace AutomationCSharpTraining
                         int Salary = Convert.ToInt32(SalaryElement.GetAttribute("data-order"));
                         FullData.Add(new Human(Name, Position, Office, Age, StartDate, Salary));
                     }
-                    //prevents the redirect to last+1 page
+                    //prevents redirect to last+1 page
                     if(i == PageLocators.Count())
                     {
                         break;

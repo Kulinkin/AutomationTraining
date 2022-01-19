@@ -61,14 +61,20 @@ namespace AutomationCSharpTraining
         }
 
         public bool IsLoggedIn(string username)
+        {            
+            Username.FindElement(By.XPath("//span[text()='" + username + "']"));
+            ExplicitlyWaitElement(Username);
+            return Username.Displayed;
+        }
+
+        public bool ExplicitlyWaitElement(IWebElement control)
         {
             var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
-            wait.PollingInterval = TimeSpan.FromMilliseconds(250);
-            var element = wait.Until(condition =>
+            return wait.Until(condition =>
             {
                 try
                 {
-                    return Username.Displayed;
+                    return control.Displayed;
                 }
                 catch (StaleElementReferenceException)
                 {
@@ -80,9 +86,7 @@ namespace AutomationCSharpTraining
                 }
             }
             );
-            Username.FindElement(By.XPath("//span[text()='" + username + "']"));
-            return Username.Displayed;
-        }        
+        }
 
         public void LogOut()
         {

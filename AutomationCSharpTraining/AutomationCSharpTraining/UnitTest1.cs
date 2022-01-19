@@ -15,7 +15,8 @@ namespace AutomationCSharpTraining
         private static readonly By fiftyPercentElement = By.XPath("//div[contains(text(),\"50%\")]");
         private static readonly By downloadButton = By.XPath("//*[@id=\"cricle-btn\"]");  
         private static readonly By whenFiftyPercentAppearsElement = By.XPath("//*[contains(@class,\"clipauto\")]");//can be used as alternative solution
-        private static readonly By zeroPercentElement = By.XPath("//div[contains(text(),\"0%\")]"); 
+        private static readonly By zeroPercentElement = By.XPath("//div[contains(text(),\"0%\")]");
+        
 
         [SetUp]
         public void Setup()
@@ -25,11 +26,55 @@ namespace AutomationCSharpTraining
             driver = new ChromeDriver(options);
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
         }
+        public bool ExplicitlyWaitUntilElementWithTextDisapears(IWebElement element, string desiredTextInElement)
+        {
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            return wait.Until(condition =>
+            {
+                try
+                {
+                    //get full text from element
+                    string FullTextInElement = element.Text.ToString();
+                    bool elementIsDisplayed = FullTextInElement.Contains(desiredTextInElement);
+                    return !elementIsDisplayed;
+                }
+                catch (StaleElementReferenceException)
+                {
+                    return false;
+                }
+                catch (NoSuchElementException)
+                {
+                    return false;
+                }
+            });
+        }
+
+        public bool ExplicitlyWaitElement(IWebElement control)
+        {
+            var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            return wait.Until(condition =>
+            {
+                try
+                {
+                    return control.Displayed;
+                }
+                catch (StaleElementReferenceException)
+                {
+                    return false;
+                }
+                catch (NoSuchElementException)
+                {
+                    return false;
+                }
+            }
+            );
+        }
 
         [Test]
         public void SuccessfullLogin()
-        {            
-            HomePage homePage = new HomePage(driver);
+        {         
+            
+            HomePage homePage = new HomePage(driver);                        
             homePage.URL();
             Thread.Sleep(2000);  //I think it is more like implicit waiter as the element which should be displayed is not indicated explicitly
             UsernamePage usernamePage = homePage.EnterLoginPage();
@@ -38,8 +83,6 @@ namespace AutomationCSharpTraining
             homePage = passwordPage.EnterPassword(passwordPage.CommonPassword);
             //Username is displayed in user card if logged in successfully
             Assert.IsTrue(homePage.IsLoggedIn("ifortest"));
-
-            driver.Quit();
         }
         [Test]
         public void SuccessfullLogin2()
@@ -51,9 +94,7 @@ namespace AutomationCSharpTraining
             PasswordPage passwordPage = usernamePage.EnterUsername(usernamePage.Username2);
             homePage = passwordPage.EnterPassword(passwordPage.CommonPassword);
             //Username is displayed in user card if logged in successfully
-            Assert.IsTrue(homePage.IsLoggedIn("4vtest"));      
-
-            driver.Quit();
+            Assert.IsTrue(homePage.IsLoggedIn("4vtest")); 
         }
         [Test]
         public void Multiselect()
@@ -68,7 +109,6 @@ namespace AutomationCSharpTraining
             var selectedOptions = multiDropDown.AllSelectedOptions;
             //verify 3 options are chosen
             Assert.AreEqual(3, selectedOptions.Count);
-            driver.Quit();
         }
         [Test]
         public void WaitUser()
@@ -77,34 +117,15 @@ namespace AutomationCSharpTraining
             IWebElement getUserButton = driver.FindElement(By.Id("save"));
             getUserButton.Click();
             //wait until loading... disapear
-            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));            
-            var UserAreaElement = wait.Until(condition =>
-            {
-                try
-                {
-                    var UserArea = driver.FindElement(By.XPath("//div[@id=\"loading\"]"));
-                    //get all text from User Area
-                    string UserAreaText = UserArea.Text.ToString();
-                    bool loadingIsDisplayed = UserAreaText.Contains("loading");                    
-                    return !loadingIsDisplayed;
-                }
-                catch (StaleElementReferenceException)
-                {
-                    return false;
-                }
-                catch (NoSuchElementException)
-                {
-                    return false;
-                }
-            });
-            var Image = driver.FindElement(By.XPath("//div[@id=\"loading\"]/img"));
             var UserArea = driver.FindElement(By.XPath("//div[@id=\"loading\"]"));
-            string UserAreaText = UserArea.Text.ToString();
+            ExplicitlyWaitUntilElementWithTextDisapears(UserArea,"loading");
+            //after loading... disapeared get content of user card
+            string UserAreaText = UserArea.Text.ToString();            
+            var Image = driver.FindElement(By.XPath("//div[@id=\"loading\"]/img"));            
             //passed if all 3 elements are displayed
             Assert.IsTrue(UserAreaText.Contains("First Name") && UserAreaText.Contains("Last Name") && Image.Displayed, "User is not loaded");
-            driver.Quit();
-        }
-        
+        }   
+
         [Test]
         public void Alert()
         {
@@ -114,8 +135,7 @@ namespace AutomationCSharpTraining
             IAlert alert = driver.SwitchTo().Alert();            
             alert.Dismiss();
             //check that alert is dismissed
-            Assert.That(() => driver.SwitchTo().Alert(), Throws.TypeOf<NoAlertPresentException>());            
-            driver.Quit();
+            Assert.That(() => driver.SwitchTo().Alert(), Throws.TypeOf<NoAlertPresentException>());
         }
         [Test]
         public void CanceltConfirmBox()
@@ -128,8 +148,7 @@ namespace AutomationCSharpTraining
             //check that alert is dismissed
             Assert.That(() => driver.SwitchTo().Alert(), Throws.TypeOf<NoAlertPresentException>());
             //check that after combo box is cancelled appears corresponding text
-            Assert.IsTrue(driver.FindElement(By.XPath("//p[@id=\"confirm-demo\"]")).Text.Contains("Cancel"));            
-            driver.Quit();
+            Assert.IsTrue(driver.FindElement(By.XPath("//p[@id=\"confirm-demo\"]")).Text.Contains("Cancel")); 
         }
         [Test]
         public void AcceptConfirmBox()
@@ -142,8 +161,8 @@ namespace AutomationCSharpTraining
             //check that alert is accepted
             Assert.That(() => driver.SwitchTo().Alert(), Throws.TypeOf<NoAlertPresentException>());
             //check that after combo box is accepted appears corresponding text
-            Assert.IsTrue(driver.FindElement(By.XPath("//p[@id=\"confirm-demo\"]")).Text.Contains("OK"));            
-            driver.Quit();
+            Assert.IsTrue(driver.FindElement(By.XPath("//p[@id=\"confirm-demo\"]")).Text.Contains("OK"));           
+            
         }
         [Test]
         public void RefreshDuringDownload()
@@ -153,30 +172,12 @@ namespace AutomationCSharpTraining
             //click download button
             DownloadButton.Click();            
             //wait till 50% appears using explicit waiter
-            var explicitWait = new WebDriverWait(driver, TimeSpan.FromSeconds(20));
-            explicitWait.PollingInterval = TimeSpan.FromMilliseconds(100);
-            var element = explicitWait.Until(condition =>
-            {
-                try
-                {
-                    var FiftyPercent = driver.FindElement(fiftyPercentElement);
-                    return FiftyPercent.Displayed;
-                }
-                catch (StaleElementReferenceException)
-                {
-                    return false;
-                }
-                catch (NoSuchElementException)
-                {
-                    return false;
-                }
-            }
-            );
+            var FiftyPercent = driver.FindElement(fiftyPercentElement);
+            ExplicitlyWaitElement(FiftyPercent);
             //refresh page
             driver.Navigate().Refresh();
             //check that the page is refreshed
-            Assert.IsTrue(driver.FindElement(zeroPercentElement).Displayed);
-            driver.Quit();
+            Assert.IsTrue(driver.FindElement(zeroPercentElement).Displayed);            
         }
         [Test]
         public void FilterByMinAgeMaxSalary()
@@ -194,8 +195,7 @@ namespace AutomationCSharpTraining
             catch(Exception)
             {
                 Console.WriteLine("Exception when counting filtered users");
-            }
-            driver.Quit();
+            }            
         }
         [Test]
         public void Logout()
@@ -211,7 +211,11 @@ namespace AutomationCSharpTraining
             //Open user menu. Switch to user menu and cick logout element
             homePage.LogOut();
             //Login link is displayed if successfully logged out
-            Assert.IsTrue(homePage.LoginLink.Displayed);
+            Assert.IsTrue(homePage.LoginLink.Displayed);            
+        }
+        [TearDown]
+        public void TearDown()
+        {
             driver.Quit();
         }
     }
