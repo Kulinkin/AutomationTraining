@@ -6,43 +6,98 @@ using System.Threading.Tasks;
 using System.Threading;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-
+using OpenQA.Selenium.Support.UI;
+using Nest;
 
 namespace AutomationCSharpTraining
 {
     class HomePage
     {
-        IWebDriver _driver;
-        public List<IWebElement> LiTags;
+        private readonly IWebDriver _driver;
+        //public List<IWebElement> LiTags;
+        private readonly string HomeUrl = "https://yandex.by";
+        private readonly By _loginLocator = By.XPath("//a[contains(@class,\"desk-notif-card__login-new-item_enter\")]");
+        private readonly By _usernameLocator = By.ClassName("desk-notif-card__user-name");
+        private readonly By _logoutLocator = By.XPath("//*[contains(text(),\"Выйти\")]");        
+
 
         public HomePage(IWebDriver driver)
         {
-            _driver = driver;
+            _driver = driver;            
         }
-            public IWebElement MailLink => _driver.FindElement(By.ClassName("desk-notif-card__login-new-item")); 
 
-            /*Examples of 'By search' that are not presented in the flow of the test
-            By Name:
-            var SearchField = _driver.FindElement(By.Name("text"));
-
-            By Tag Name:
-            LiTags = _driver.FindElements(By.TagName("li")).ToList();
-
-            By Link Text:
-            var WeatherLink = _driver.FindElement(By.LinkText("Погода"));
-
-            By Partial Link Text:
-            var LinkWithCustomText = _driver.FindElement(By.PartialLinkText("ро"));
-
-            By CSS
-            var NewsLink = _driver.FindElement(By.CssSelector("span[class='news__tab-text']"));
-            */
-
-
-        public void EnterMailLoginPage()
+        public HomePage URL()
         {
+            _driver.Url = HomeUrl;
+            return new HomePage(_driver);
+        }            
+        public IWebElement LoginLink => _driver.FindElement(_loginLocator);
+        public IWebElement Username => _driver.FindElement(_usernameLocator);
+        public IWebElement LogoutLink => _driver.FindElement(_logoutLocator);        
 
-            MailLink.Click();           
+        /*Examples of 'By search' that are not presented in the flow of the test
+        By Name:
+        var SearchField = _driver.FindElement(By.Name("text"));
+
+        By Tag Name:
+        LiTags = _driver.FindElements(By.TagName("li")).ToList();
+
+        By Link Text:
+        var WeatherLink = _driver.FindElement(By.LinkText("Погода"));
+
+        By Partial Link Text:
+        var LinkWithCustomText = _driver.FindElement(By.PartialLinkText("ро"));
+
+        By CSS
+        var NewsLink = _driver.FindElement(By.CssSelector("span[class='news__tab-text']"));
+
+         */
+
+
+        public UsernamePage EnterLoginPage()
+        {
+            LoginLink.Click();
+            return new UsernamePage(_driver);
+        }
+
+        public bool IsLoggedIn(string username)
+        {            
+            Username.FindElement(By.XPath("//span[text()='" + username + "']"));
+            ExplicitlyWaitElement(Username);
+            return Username.Displayed;
+        }
+
+        public bool ExplicitlyWaitElement(IWebElement control)
+        {
+            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
+            return wait.Until(condition =>
+            {
+                try
+                {
+                    return control.Displayed;
+                }
+                catch (StaleElementReferenceException)
+                {
+                    return false;
+                }
+                catch (NoSuchElementException)
+                {
+                    return false;
+                }
+            }
+            );
+        }
+
+        public void LogOut()
+        {
+            Username.Click();
+            _driver.SwitchTo().Window(_driver.WindowHandles.Last());
+            LogoutLink.Click();
+        }
+
+        public void MakeHPScreenShot() 
+        {
+            _driver.MakeScreenShot();
         }
     }
 }

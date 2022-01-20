@@ -99,3 +99,8 @@ C:\Users\artemkulinkin\source\repos\AutomationCSharpTraining\AutomationCSharpTra
 C:\Users\artemkulinkin\source\repos\AutomationCSharpTraining\AutomationCSharpTraining\obj\Debug\net5.0\ref\AutomationCSharpTraining.dll
 C:\Users\artemkulinkin\source\repos\AutomationCSharpTraining\AutomationCSharpTraining\obj\Debug\net5.0\AutomationCSharpTraining.pdb
 C:\Users\artemkulinkin\source\repos\AutomationCSharpTraining\AutomationCSharpTraining\obj\Debug\net5.0\AutomationCSharpTraining.genruntimeconfig.cache
+C:\Users\artemkulinkin\source\repos\AutomationCSharpTraining\AutomationCSharpTraining\bin\Debug\net5.0\AWSSDK.Core.dll
+C:\Users\artemkulinkin\source\repos\AutomationCSharpTraining\AutomationCSharpTraining\bin\Debug\net5.0\AWSSDK.DynamoDBv2.dll
+C:\Users\artemkulinkin\source\repos\AutomationCSharpTraining\AutomationCSharpTraining\bin\Debug\net5.0\WebDriver.Support.dll
+C:\Users\artemkulinkin\source\repos\AutomationCSharpTraining\AutomationCSharpTraining\bin\Debug\net5.0\Elasticsearch.Net.dll
+C:\Users\artemkulinkin\source\repos\AutomationCSharpTraining\AutomationCSharpTraining\bin\Debug\net5.0\Nest.dll
